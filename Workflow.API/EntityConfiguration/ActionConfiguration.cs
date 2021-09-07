@@ -17,7 +17,7 @@ namespace Workflow.API.EntityConfiguration
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).ValueGeneratedNever();
 
-            builder.has(x => x.CurrentStep).WithMany(e => e.Actions).HasForeignKey(x => x.CurrentStepId);
+            builder.HasOne(x => x.CurrentStep).WithMany(e => e.Actions).HasForeignKey(x => x.CurrentStepId);
             builder.HasOne(x => x.NextStep).WithMany().HasForeignKey(x => x.NextStepId);
             builder.HasOne(x => x.ActionType).WithMany().HasForeignKey(x => x.ActionTypeId);
         }
