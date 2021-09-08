@@ -92,7 +92,7 @@ namespace Workflow.API.Migrations
                     Id = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ActionTypeId = table.Column<int>(type: "int", nullable: false),
-                    CurrentStepId = table.Column<int>(type: "int", nullable: true),
+                    CurrentStepId = table.Column<int>(type: "int", nullable: false),
                     NextStepId = table.Column<int>(type: "int", nullable: true),
                     Order = table.Column<short>(type: "smallint", nullable: false)
                 },
@@ -110,7 +110,7 @@ namespace Workflow.API.Migrations
                         column: x => x.CurrentStepId,
                         principalTable: "Steps",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Actions_Steps_NextStepId",
                         column: x => x.NextStepId,
@@ -167,8 +167,7 @@ namespace Workflow.API.Migrations
                         name: "FK_ActionsHistory_ProcessInstances_ProcessInstanceId",
                         column: x => x.ProcessInstanceId,
                         principalTable: "ProcessInstances",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(

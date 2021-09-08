@@ -10,8 +10,8 @@ using Workflow.API.DbContexts;
 namespace Workflow.API.Migrations
 {
     [DbContext(typeof(WorkflowContext))]
-    [Migration("20210907110858_init4")]
-    partial class init4
+    [Migration("20210908102223_init1")]
+    partial class init1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,7 +35,7 @@ namespace Workflow.API.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("NextStepId")
+                    b.Property<int?>("NextStepId")
                         .HasColumnType("int");
 
                     b.Property<short>("Order")
@@ -530,9 +530,7 @@ namespace Workflow.API.Migrations
 
                     b.HasOne("WorkFlow.API.Entities.Step", "NextStep")
                         .WithMany()
-                        .HasForeignKey("NextStepId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("NextStepId");
 
                     b.Navigation("ActionType");
 
@@ -586,9 +584,9 @@ namespace Workflow.API.Migrations
                         .IsRequired();
 
                     b.HasOne("WorkFlow.API.Entities.ProcessInstance", "ProcessInstance")
-                        .WithMany()
+                        .WithMany("ActionsHistory")
                         .HasForeignKey("ProcessInstanceId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Action");
@@ -618,6 +616,11 @@ namespace Workflow.API.Migrations
             modelBuilder.Entity("WorkFlow.API.Entities.Process", b =>
                 {
                     b.Navigation("Steps");
+                });
+
+            modelBuilder.Entity("WorkFlow.API.Entities.ProcessInstance", b =>
+                {
+                    b.Navigation("ActionsHistory");
                 });
 
             modelBuilder.Entity("WorkFlow.API.Entities.Step", b =>

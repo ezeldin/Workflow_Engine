@@ -15,6 +15,8 @@ namespace WorkFlow.API.Entities
         public int CurrentStepId { get; private set; } //initialize:process.firstStepId  //doAction:action.NextStepId
         public Step Step { get; private set; }
 
+        public ICollection<ActionHistory> ActionsHistory { get; set; }
+
         public ProcessInstance(Process process)
         {
             ProcessId = process.Id;

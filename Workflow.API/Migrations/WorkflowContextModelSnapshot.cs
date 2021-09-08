@@ -582,9 +582,9 @@ namespace Workflow.API.Migrations
                         .IsRequired();
 
                     b.HasOne("WorkFlow.API.Entities.ProcessInstance", "ProcessInstance")
-                        .WithMany()
+                        .WithMany("ActionsHistory")
                         .HasForeignKey("ProcessInstanceId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Action");
@@ -614,6 +614,11 @@ namespace Workflow.API.Migrations
             modelBuilder.Entity("WorkFlow.API.Entities.Process", b =>
                 {
                     b.Navigation("Steps");
+                });
+
+            modelBuilder.Entity("WorkFlow.API.Entities.ProcessInstance", b =>
+                {
+                    b.Navigation("ActionsHistory");
                 });
 
             modelBuilder.Entity("WorkFlow.API.Entities.Step", b =>

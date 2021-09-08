@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Workflow.API.Entities;
 using WorkFlow.API.Entities;
 
 namespace Workflow.API.EntityConfiguration

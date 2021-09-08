@@ -9,8 +9,6 @@ namespace WorkFlow.API.Entities
 
         public int ActionTypeId { get; set; }
         public ActionType ActionType { get; set; }
-
-        [Required]
         public int CurrentStepId { get; set; }
         public Step CurrentStep { get; set; }
 

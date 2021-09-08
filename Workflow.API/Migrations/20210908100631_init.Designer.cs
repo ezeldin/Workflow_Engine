@@ -10,8 +10,8 @@ using Workflow.API.DbContexts;
 namespace Workflow.API.Migrations
 {
     [DbContext(typeof(WorkflowContext))]
-    [Migration("20210907113853_init5")]
-    partial class init5
+    [Migration("20210908100631_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -584,9 +584,9 @@ namespace Workflow.API.Migrations
                         .IsRequired();
 
                     b.HasOne("WorkFlow.API.Entities.ProcessInstance", "ProcessInstance")
-                        .WithMany()
+                        .WithMany("ActionsHistory")
                         .HasForeignKey("ProcessInstanceId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Action");
@@ -616,6 +616,11 @@ namespace Workflow.API.Migrations
             modelBuilder.Entity("WorkFlow.API.Entities.Process", b =>
                 {
                     b.Navigation("Steps");
+                });
+
+            modelBuilder.Entity("WorkFlow.API.Entities.ProcessInstance", b =>
+                {
+                    b.Navigation("ActionsHistory");
                 });
 
             modelBuilder.Entity("WorkFlow.API.Entities.Step", b =>

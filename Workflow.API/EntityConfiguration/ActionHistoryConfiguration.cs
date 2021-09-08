@@ -15,8 +15,13 @@ namespace Workflow.API.EntityConfiguration
         {
             builder.ToTable("ActionsHistory");
             builder.HasKey(x => x.Id);
+            //builder.Property(x => x.ProcessInstanceId).IsRequired();
 
-            builder.HasOne(x => x.ProcessInstance).WithMany().HasForeignKey(x => x.ProcessInstanceId);
+            builder.HasOne(x => x.ProcessInstance)
+                .WithMany(e => e.ActionsHistory)
+                .HasForeignKey(x => x.ProcessInstanceId)
+                .OnDelete(DeleteBehavior.NoAction);
+
             builder.HasOne(x => x.Action).WithMany().HasForeignKey(x => x.ActionId);
         }
     }

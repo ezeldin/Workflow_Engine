@@ -28,40 +28,15 @@ namespace Workflow.API.DbContexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //Configurations
+            modelBuilder.ApplyConfiguration(new RequestTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new StepTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ActionTypeConfiguration());
             modelBuilder.ApplyConfiguration(new ProcessConfiguration());
             modelBuilder.ApplyConfiguration(new StepConfiguration());
             modelBuilder.ApplyConfiguration(new ActionConfiguration());
             modelBuilder.ApplyConfiguration(new ProcessInstanceConfiguration());
             modelBuilder.ApplyConfiguration(new ActionHistoryConfiguration());
-            modelBuilder.ApplyConfiguration(new StepTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new ActionTypeConfiguration());
             modelBuilder.ApplyConfiguration(new RequestConfiguration());
-            modelBuilder.ApplyConfiguration(new RequestTypeConfiguration());
-
-            modelBuilder.Entity<RequestType>().HasData(new RequestType() { Id = (int)RequestTypesEnum.Claim, Name = "Claim Request" });
-            modelBuilder.Entity<RequestType>().HasData(new RequestType() { Id = (int)RequestTypesEnum.ModifyBill, Name = "Modify Bill Request" });
-            modelBuilder.Entity<RequestType>().HasData(new RequestType() { Id = (int)RequestTypesEnum.CancelBill, Name = "Cancel Bill Request" });
-
-            modelBuilder.Entity<StepType>().HasData(new StepType() { Id = (int)StepTypesEnum.Draft, Code = "Draft", Name = "Draft" });
-            modelBuilder.Entity<StepType>().HasData(new StepType() { Id = (int)StepTypesEnum.InProgress, Code = "InProgress", Name = "InProgress" });
-            modelBuilder.Entity<StepType>().HasData(new StepType() { Id = (int)StepTypesEnum.Approved, Code = "Approved", Name = "Approved" });
-            modelBuilder.Entity<StepType>().HasData(new StepType() { Id = (int)StepTypesEnum.Rejected, Code = "Rejected", Name = "Rejected" });
-            modelBuilder.Entity<StepType>().HasData(new StepType() { Id = (int)StepTypesEnum.Canceled, Code = "Canceled", Name = "Canceled" });
-            modelBuilder.Entity<StepType>().HasData(new StepType() { Id = (int)StepTypesEnum.Assessor, Code = "Assessor", Name = "Assessor" });
-            modelBuilder.Entity<StepType>().HasData(new StepType() { Id = (int)StepTypesEnum.Endorser, Code = "Endorser", Name = "Endorser" });
-            modelBuilder.Entity<StepType>().HasData(new StepType() { Id = (int)StepTypesEnum.Approver, Code = "Approver", Name = "Approver" });
-            modelBuilder.Entity<StepType>().HasData(new StepType() { Id = (int)StepTypesEnum.Initiator, Code = "Initiator", Name = "Initiator" });
-            modelBuilder.Entity<StepType>().HasData(new StepType() { Id = (int)StepTypesEnum.CommitteeReview, Code = "CommitteeReview", Name = "Committee Review" });
-
-            modelBuilder.Entity<ActionType>().HasData(new ActionType() { Id = (int)ActionTypesEnum.Submit, Code = "Submit", Name = "Submit" });
-            modelBuilder.Entity<ActionType>().HasData(new ActionType() { Id = (int)ActionTypesEnum.Approve, Code = "Approve", Name = "Approve" });
-            modelBuilder.Entity<ActionType>().HasData(new ActionType() { Id = (int)ActionTypesEnum.Return, Code = "Return", Name = "Return" });
-            modelBuilder.Entity<ActionType>().HasData(new ActionType() { Id = (int)ActionTypesEnum.Reject, Code = "Reject", Name = "Reject" });
-            modelBuilder.Entity<ActionType>().HasData(new ActionType() { Id = (int)ActionTypesEnum.UnderReview, Code = "UnderReview", Name = "Under Review" });
-            modelBuilder.Entity<ActionType>().HasData(new ActionType() { Id = (int)ActionTypesEnum.ApproveForSubmission, Code = "ApproveForSubmission", Name = "Approve For Submission" });
-            modelBuilder.Entity<ActionType>().HasData(new ActionType() { Id = (int)ActionTypesEnum.RecommendForApproval, Code = "RecommendForApproval", Name = "Recommend For Approval" });
-            modelBuilder.Entity<ActionType>().HasData(new ActionType() { Id = (int)ActionTypesEnum.RecommendForRejection, Code = "RecommendForRejection", Name = "Recommend for rejection" });
-
 
             modelBuilder.Entity<Process>().HasData(new Process()
             {

@@ -16,8 +16,12 @@ namespace Workflow.API.EntityConfiguration
             builder.ToTable("Actions");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).ValueGeneratedNever();
+            builder.Property(x => x.CurrentStepId).IsRequired();
 
-            builder.HasOne(x => x.CurrentStep).WithMany(e => e.Actions).HasForeignKey(x => x.CurrentStepId);
+            builder.HasOne(x => x.CurrentStep).WithMany(e => e.Actions)
+                .HasForeignKey(x => x.CurrentStepId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             builder.HasOne(x => x.NextStep).WithMany().HasForeignKey(x => x.NextStepId);
             builder.HasOne(x => x.ActionType).WithMany().HasForeignKey(x => x.ActionTypeId);
         }
